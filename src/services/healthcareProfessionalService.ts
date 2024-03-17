@@ -1,4 +1,4 @@
-import HealthcareProfessionalModel, { IHealthcareProfessional } from './models/HealthcareProfessional';
+import HealthcareProfessionalModel, { IHealthcareProfessional } from '../models/HealthcareProfessional';
 
 export async function addHealthcareProfessional(professionalData: IHealthcareProfessional): Promise<IHealthcareProfessional> {
   try {

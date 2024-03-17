@@ -1,7 +1,7 @@
 import mongoose, { Document, Schema } from 'mongoose';
 
-// Modèle pour les professionnels de la santé
-interface IHealthcareProfessional extends Document {
+// Define the interface for HealthcareProfessional document
+export interface IHealthcareProfessional extends Document {
   firstName: string;
   lastName: string;
   email: string;
@@ -10,6 +10,7 @@ interface IHealthcareProfessional extends Document {
   specialty: string;
 }
 
+// Define the schema for the HealthcareProfessional model
 const HealthcareProfessionalSchema: Schema = new Schema({
   firstName: { type: String, required: true },
   lastName: { type: String, required: true },
@@ -19,4 +20,5 @@ const HealthcareProfessionalSchema: Schema = new Schema({
   specialty: { type: String, required: true },
 });
 
+// Export the model
 export default mongoose.model<IHealthcareProfessional>('HealthcareProfessional', HealthcareProfessionalSchema);
