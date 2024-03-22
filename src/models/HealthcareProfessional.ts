@@ -18,7 +18,7 @@ const HealthcareProfessionalSchema: Schema = new Schema({
   password: { type: String, required: true },
   phoneNumber: { type: String, required: true },
   specialty: { type: String, required: true },
-});
+},{ collection: 'HealthcareProfessional' });
 
 // Export the model
 export default mongoose.model<IHealthcareProfessional>('HealthcareProfessional', HealthcareProfessionalSchema);

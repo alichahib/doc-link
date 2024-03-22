@@ -1,7 +1,22 @@
 import express from 'express';
-import addHealthcareProfessionalRoute from './routes/healthcareProfessionalRoute';
+import healthcareProfessionalRoute from './routes/healthcareProfessionalRoute';
+import userRoute from './routes/userRoute';
+import connectDB from './db';
+import bodyParser  from 'body-parser';
+//import cors from 'cors'; 
 
 const app = express();
+app.use((req, res, next) => {
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader(
+    "Access-Control-Allow-Methods",
+    "OPTIONS, GET, POST, PUT, PATCH, DELETE"
+  );
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
+  next();
+});
+connectDB();
+app.use(bodyParser.json());
 
 // Définir une route pour la racine de votre application
 app.get('/', (req, res) => {
@@ -9,7 +24,9 @@ app.get('/', (req, res) => {
 });
 
 // Use the route file for adding healthcare professionals
-app.use('/healthcare-professionals', addHealthcareProfessionalRoute);
+app.use('/user', userRoute);
+app.use('/healthcare-professionals', healthcareProfessionalRoute);
+
 
 // Other route files...
 
