@@ -16,6 +16,8 @@ const UserSchema: Schema = new Schema({
   password: { type: String, required: true },
   phoneNumber: { type: String, required: true },
   type: { type: String, required: true },
+  isAdmin: {type: Boolean, required: false},
+  isDoctor:{type: Boolean, required: false},
 },{ collection: 'User' });
 
 // Export the model

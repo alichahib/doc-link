@@ -35,7 +35,6 @@ export async function addUserController(req: Request, res: Response): Promise<vo
 
 export async function authController(req: Request, res: Response): Promise<void> {
   try {
-    console.log(req.body)
     const user = await UserModel.findOne({_id:req.body.userId});
 
     if(!user){
