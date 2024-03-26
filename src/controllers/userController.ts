@@ -3,7 +3,9 @@ dotenv.config();
 const jwtSecret = process.env.JWT_SECRET;
 import { Request, Response } from 'express';
 import { addUser } from '../services/userService';
+import { addDoctor,searchDoctor } from '../services/doctorService';
 import UserModel from '../models/User';
+import DoctorModel from '../models/Doctor';
 import bcryptjs from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 
@@ -25,6 +27,42 @@ export async function addUserController(req: Request, res: Response): Promise<vo
       const newUser = new UserModel(req.body);
       await addUser(newUser);
       res.status(201).json(newUser);
+    }
+
+  } catch (error) {
+    console.log(error)
+    res.status(500).json({ message: 'Failed to add healthcare professional' });
+  }
+}
+
+export async function addDoctorRequestController(req: Request, res: Response): Promise<void> {
+  try {
+    const existingUser = await UserModel.find({email:req.body.email});
+
+    if(existingUser){
+      const newDoctor = new DoctorModel(req.body);
+      await addDoctor(newDoctor);
+      res.status(200).json({ data:newDoctor,success:true }); 
+    }
+    else{
+      res.status(200).json({ message: 'Profil non trouvé' }); 
+    }
+
+  } catch (error) {
+    console.log(error)
+    res.status(500).json({ message: 'Failed to add healthcare professional' });
+  }
+}
+
+export async function searchDoctorController(req: Request, res: Response): Promise<void> {
+  try {
+    const doctors = await searchDoctor(req.body);
+
+    if(doctors){
+      res.status(200).json({ data:doctors,success:true }); 
+    }
+    else{
+      res.status(200).json({ message: 'Profil non trouvé' }); 
     }
 
   } catch (error) {
