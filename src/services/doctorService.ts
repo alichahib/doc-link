@@ -24,3 +24,16 @@ export async function searchDoctor(query: Record<string, any>): Promise<IDoctor[
         throw error;
     }
 }
+
+// Fonction de recherche de médecins
+export async function getDoctorByEmail(email:string): Promise<IDoctor | null> {
+    try {
+        // Recherche dans la collection Doctor en fonction des critères de recherche
+        const doctor = await DoctorModel.findOne({email});
+        return doctor;
+    } catch (error) {
+        // Gérer les erreurs éventuelles
+        console.error('Une erreur est survenue lors de la recherche des médecins :', error);
+        throw error;
+    }
+}

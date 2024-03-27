@@ -3,7 +3,7 @@ dotenv.config();
 const jwtSecret = process.env.JWT_SECRET;
 import { Request, Response } from 'express';
 import { addUser } from '../services/userService';
-import { addDoctor,searchDoctor } from '../services/doctorService';
+import { addDoctor,searchDoctor,getDoctorByEmail } from '../services/doctorService';
 import UserModel from '../models/User';
 import DoctorModel from '../models/Doctor';
 import bcryptjs from 'bcryptjs';
@@ -60,6 +60,23 @@ export async function searchDoctorController(req: Request, res: Response): Promi
 
     if(doctors){
       res.status(200).json({ data:doctors,success:true }); 
+    }
+    else{
+      res.status(200).json({ message: 'Profil non trouvé' }); 
+    }
+
+  } catch (error) {
+    console.log(error)
+    res.status(500).json({ message: 'Failed to add healthcare professional' });
+  }
+}
+
+export async function getDoctorByEmailController(req: Request, res: Response): Promise<void> {
+  try {
+    const doctor = await getDoctorByEmail(req.body.emails);
+
+    if(doctor){
+      res.status(200).json({ data:doctor,success:true }); 
     }
     else{
       res.status(200).json({ message: 'Profil non trouvé' }); 
